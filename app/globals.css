@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Deck tokens. Keep these in sync with the slides.
+   Colours are stored as raw RGB channels so Tailwind can apply opacity
+   modifiers (bg-accent/15) via the <alpha-value> placeholder. */
+:root {
+  --bg-rgb: 11 11 11; /* #0B0B0B */
+  --surface-rgb: 20 20 20; /* #141414 */
+  --surface-2-rgb: 27 27 27; /* #1B1B1B */
+  --accent-rgb: 199 249 76; /* #C7F94C */
+  --muted-rgb: 140 140 140; /* #8C8C8C */
+  --fail-rgb: 255 92 92; /* #FF5C5C */
+  --warn-rgb: 255 176 32; /* #FFB020 */
+
+  --bg: rgb(var(--bg-rgb));
+  --surface: rgb(var(--surface-rgb));
+  --accent: rgb(var(--accent-rgb));
+  --muted: rgb(var(--muted-rgb));
+  --line: rgba(255, 255, 255, 0.09);
+
+  /* Fonts are loaded via <link> in layout.tsx so an offline machine degrades
+     to the system stack instead of failing the render. */
+  --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: #f5f5f5;
+}
+
+body {
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: #0b0b0b;
+}
+
+/* Projector-friendly scrollbars: visible but not loud. */
+* {
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  scrollbar-width: thin;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-xl border border-line bg-surface;
+  }
+  .label {
+    @apply font-mono text-[11px] uppercase tracking-[0.16em] text-muted;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-surface2 px-4 py-2.5
+           font-mono text-[12px] uppercase tracking-[0.12em] text-white transition
+           hover:border-white/25 disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-accent {
+    @apply border-transparent bg-accent text-black hover:bg-accent hover:brightness-110;
+  }
+  .input {
+    @apply w-full rounded-lg border border-line bg-surface2 px-3 py-2.5 font-mono text-[13px]
+           text-white outline-none placeholder:text-muted focus:border-accent/60;
+  }
+}
+
+/* Trace tree connector lines. */
+.trace-children {
+  position: relative;
+  margin-left: 14px;
+  padding-left: 22px;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+.trace-node {
+  position: relative;
+}
+.trace-node::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 20px;
+  width: 22px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+@keyframes stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 28px 0;
+  }
+}
+.progress-stripes {
+  background-image: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.22) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.22) 50%,
+    rgba(0, 0, 0, 0.22) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 28px 28px;
+  animation: stripes 0.8s linear infinite;
+}
