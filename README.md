@@ -3,6 +3,46 @@
 A deliberately imperfect customer-support bot, and the eval harness that proves it.
 The bot is the prop. The evals are the point.
 
+![Evals tab: 12 classification cases scored with exact_match, four red rows, each failure
+named](docs/screenshots/evals.png)
+
+## Screens
+
+Every screenshot below is a real run of this app in Demo mode, so the numbers match the
+cached fixtures in `data/fixtures.ts`.
+
+<details>
+<summary><b>Playground</b> — the same prompt, twice, at the same temperature</summary>
+
+![Playground tab: one customer message run twice, two different replies side by
+side](docs/screenshots/playground.png)
+
+</details>
+
+<details>
+<summary><b>Compare</b> — cost against quality, as one sentence</summary>
+
+![Compare tab: gpt-4o-mini and claude-sonnet-4.5 both at 66.7% on classification, with
+Sonnet costing 27.6x as much](docs/screenshots/compare.png)
+
+</details>
+
+<details>
+<summary><b>Judge</b> — an LLM judge measured against human labels</summary>
+
+![Judge tab: 83.3% agreement across 12 cases, one false pass and one false
+fail](docs/screenshots/judge.png)
+
+</details>
+
+<details>
+<summary><b>Trace</b> — nested spans, per-span latency and cost</summary>
+
+![Trace tab: a handle_request root span over classify, agent_plan and two answer spans,
+each with its own latency and cost](docs/screenshots/trace.png)
+
+</details>
+
 ## Quickstart
 
 ```bash
